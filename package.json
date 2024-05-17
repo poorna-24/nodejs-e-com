@@ -1,7 +1,7 @@
 {
   "name": "nodejs-e-com",
   "version": "1.0.0",
-  "description": "",
+  "description": "nodejs api e-com",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -9,8 +9,11 @@
     "start": "node server.js",
     "dev": " nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "API",
+    "NodeJS"
+  ],
+  "author": "Poorna chander terala",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
