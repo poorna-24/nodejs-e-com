@@ -1,9 +1,11 @@
 import express from "express";
+import { registerUser, loginUser, getUserProfileCtrl } from "../controllers/users.controller.js";
+import { isLoggedIn } from "../middlewares/isLoggedIn.js";
 
-import { registerUser, loginUser } from "../controllers/users.controller.js";
 const userRouter = express.Router();
 
-userRouter.post("/api/v1/users/register", registerUser);
-userRouter.post("/api/v1/users/login", loginUser);
+userRouter.post("/register", registerUser);
+userRouter.post("/login", loginUser);
+userRouter.get("/profile", isLoggedIn, getUserProfileCtrl);
 
 export default userRouter;

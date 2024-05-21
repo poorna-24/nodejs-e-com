@@ -13,7 +13,7 @@
     "API",
     "NodeJS"
   ],
-  "author": "Poorna chander terala",
+  "author": "Poorna chander Terala",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
