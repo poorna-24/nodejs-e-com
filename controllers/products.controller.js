@@ -1,6 +1,187 @@
-import Product from "../models/Product";
-import { asyncHandler } from "express-async-handler";
+import Product from "../models/Product.js";
+import asyncHandler from "express-async-handler";
 
 export const createProduct = asyncHandler(async (req, res) => {
-  const { name, desciption, category, sizes, colors, user, price, totalQty } = req.body;
+  // console.log(req.body);
+  const { name, description, category, sizes, colors, price, totalQty, brand } = req.body;
+
+  const productExists = await Product.findOne({ name });
+  if (productExists) {
+    throw new Error("Product already exists");
+  }
+  //create the product
+  const product = await Product.create({
+    name,
+    description,
+    category,
+    sizes,
+    colors,
+    user: req.userAuthId,
+    price,
+    totalQty,
+    brand,
+    // images: convertedImgs,
+  });
+
+  //push the product into category
+
+  res.status(201).json({ status: "success", message: "Product created successfully" });
+});
+
+//get all products
+
+export const getAllProducts = asyncHandler(async (req, res) => {
+  // console.log(req.query);
+
+  let productQuery = Product.find();
+  // console.log(productQuery);
+  // const products = await Product.find();
+
+  //serach by name   {{baseURL}}/products?name=hats
+  //
+
+  if (req.query.name) {
+    productQuery = productQuery.find({
+      name: { $regex: req.query.name, $options: "i" },
+    });
+  }
+  //search by brand  {{baseURL}}/products?name=hats&brand=tata
+  if (req.query.brand) {
+    productQuery = productQuery.find({
+      brand: { $regex: req.query.brand, $options: "i" },
+    });
+  }
+  //search by category  {{baseURL}}/products?name=hats&brand=tata&category=men
+  if (req.query.category) {
+    productQuery = productQuery.find({
+      category: { $regex: req.query.category, $options: "i" },
+    });
+  }
+
+  //filter by color          {{baseURL}}/products?name=hats&brand=tata&category=men&color=red
+  if (req.query.color) {
+    productQuery = productQuery.find({
+      colors: { $regex: req.query.color, $options: "i" },
+    });
+  }
+
+  //filter by size   {{baseURL}}/products?name=hats&brand=tata&category=men&color=red&size=xl
+  if (req.query.size) {
+    productQuery = productQuery.find({
+      sizes: { $regex: req.query.size, $options: "i" },
+    });
+  }
+
+  //filter by range
+  if (req.query.price) {
+    const priceRange = req.query.price.split("-");
+    // console.log(priceRange);
+    //gte: greater or equal
+    //lte: less than or equal to
+    productQuery = productQuery.find({
+      price: { $gte: priceRange[0], $lte: priceRange[1] },
+    });
+  }
+
+  //pagination
+  //page
+  const page = parseInt(req.query.page) ? parseInt(req.query.page) : 1;
+  //limit
+  const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 10;
+  //startIdx
+  const startIndex = (page - 1) * limit;
+  //endIdx
+  const endIndex = page * limit;
+  //total
+  const total = await Product.countDocuments();
+
+  productQuery = productQuery.skip(startIndex).limit(limit);
+
+  //pagination results
+  const pagination = {};
+  if (endIndex < total) {
+    pagination.next = {
+      page: page + 1,
+      limit,
+    };
+  }
+  if (startIndex > 0) {
+    pagination.prev = {
+      page: page - 1,
+      limit,
+    };
+  }
+
+  const products = await productQuery;
+  // console.log(products);
+
+  //await the product
+  res.json({
+    status: "success",
+    total,
+    results: products.length,
+    pagination,
+    message: "Products fetched successfully",
+    products,
+  });
+});
+
+//get singleproduct           {{baseURL}}/products/664e125223c29ecc4ed00317
+
+export const getProduct = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) {
+    throw new Error("Product not found");
+  }
+
+  res.json({
+    status: "success",
+    message: "Product fetched Successfully",
+    product,
+  });
+});
+
+// @desc    update  product
+// @route   PUT /api/products/:id/update
+// @access  Private/Admin
+
+export const updateProduct = asyncHandler(async (req, res) => {
+  const { name, description, category, sizes, colors, user, price, totalQty, brand } = req.body;
+  //validation
+
+  //update
+  const product = await Product.findByIdAndUpdate(
+    req.params.id,
+    {
+      name,
+      description,
+      category,
+      sizes,
+      colors,
+      user,
+      price,
+      totalQty,
+      brand,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.json({
+    status: "success",
+    message: "Product updated successfully",
+    product,
+  });
+});
+
+// @desc    delete  product
+// @route   DELETE /api/products/:id/delete
+// @access  Private/Admin
+export const deleteProduct = asyncHandler(async (req, res) => {
+  await Product.findByIdAndDelete(req.params.id);
+  res.json({
+    status: "success",
+    message: "Product deleted successfully",
+  });
 });

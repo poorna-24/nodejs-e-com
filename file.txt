@@ -1,0 +1,31 @@
+postman :   https://www.postman.com/chanduterala/workspace/nodejs-e-com/collection/25163464-6ec45f49-d85b-455f-bb56-6f8b7cde1d4c?action=share&creator=25163464&active-environment=25163464-6724335c-ed1c-4a00-af39-4f41417c9797
+
+
+post
+http://localhost:2024/api/v1/users/login
+
+post
+http://localhost:2024/api/v1/users/register
+
+
+post
+http://localhost:2024/api/v1/users/profile
+
+post
+http://localhost:2024/api/v1/products
+
+
+get
+http://localhost:2024/api/v1/products/                 {{baseURL}}/products
+
+update-put
+{{baseURL}}/products/664e125223c29ecc4ed00317
+
+delete product
+{{baseURL}}/products/664e125223c29ecc4ed00317/delete?
+
+
+//search by name
+{{baseURL}}/products?name=hats
+
+
