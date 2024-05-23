@@ -8,6 +8,8 @@ import dbConnect from "../config/dbConnect.js";
 import userRouter from "../routes/User.route.js";
 import productRouter from "../routes/Product.route.js";
 import categoriesRouter from "../routes/Category.router.js";
+import brandsRouter from "../routes/brands.router.js";
+import colorRouter from "../routes/colors.router.js";
 
 dotenv.config();
 //db connect
@@ -21,6 +23,8 @@ app.use(express.json());
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/categories", categoriesRouter);
+app.use("/api/v1/brands", brandsRouter);
+app.use("/api/v1/colors", colorRouter);
 
 //err middleware
 app.use(notFound);
