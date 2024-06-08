@@ -53,62 +53,57 @@ export const createProduct = asyncHandler(async (req, res) => {
 
   res.status(201).json({ status: "success", message: "Product created successfully" });
 });
-
+//////////////////////////////////////////
 //get all products
 
 export const getAllProducts = asyncHandler(async (req, res) => {
-  // console.log(req.query);
-
+  console.log(req.query);
+  //query
   let productQuery = Product.find();
-  // console.log(productQuery);
-  // const products = await Product.find();
 
-  //serach by name   {{baseURL}}/products?name=hats
-  //
-
+  //search by name
   if (req.query.name) {
     productQuery = productQuery.find({
       name: { $regex: req.query.name, $options: "i" },
     });
   }
-  //search by brand  {{baseURL}}/products?name=hats&brand=tata
+
+  //filter by brand
   if (req.query.brand) {
     productQuery = productQuery.find({
       brand: { $regex: req.query.brand, $options: "i" },
     });
   }
-  //search by category  {{baseURL}}/products?name=hats&brand=tata&category=men
+
+  //filter by category
   if (req.query.category) {
     productQuery = productQuery.find({
       category: { $regex: req.query.category, $options: "i" },
     });
   }
 
-  //filter by color          {{baseURL}}/products?name=hats&brand=tata&category=men&color=red
+  //filter by color
   if (req.query.color) {
     productQuery = productQuery.find({
       colors: { $regex: req.query.color, $options: "i" },
     });
   }
 
-  //filter by size   {{baseURL}}/products?name=hats&brand=tata&category=men&color=red&size=xl
+  //filter by size
   if (req.query.size) {
     productQuery = productQuery.find({
       sizes: { $regex: req.query.size, $options: "i" },
     });
   }
-
-  //filter by range
+  //filter by price range
   if (req.query.price) {
     const priceRange = req.query.price.split("-");
-    // console.log(priceRange);
     //gte: greater or equal
     //lte: less than or equal to
     productQuery = productQuery.find({
       price: { $gte: priceRange[0], $lte: priceRange[1] },
     });
   }
-
   //pagination
   //page
   const page = parseInt(req.query.page) ? parseInt(req.query.page) : 1;
@@ -138,10 +133,8 @@ export const getAllProducts = asyncHandler(async (req, res) => {
     };
   }
 
-  const products = await productQuery;
-  // console.log(products);
-
-  //await the product
+  //await the query
+  const products = await productQuery.populate("reviews");
   res.json({
     status: "success",
     total,
@@ -150,6 +143,90 @@ export const getAllProducts = asyncHandler(async (req, res) => {
     message: "Products fetched successfully",
     products,
   });
+
+  /////////////////////
+  // console.log(req.query);
+  // let productQuery = Product.find();
+  // // console.log(productQuery);
+  // // const products = await Product.find();
+  // //serach by name   {{baseURL}}/products?name=hats
+  // //
+  // if (req.query.name) {
+  //   productQuery = productQuery.find({
+  //     name: { $regex: req.query.name, $options: "i" },
+  //   });
+  // }
+  // // //search by brand  {{baseURL}}/products?name=hats&brand=tata
+  // // if (req.query.brand) {
+  // //   productQuery = productQuery.find({
+  // //     brand: { $regex: req.query.brand, $options: "i" },
+  // //   });
+  // // }
+  // // //search by category  {{baseURL}}/products?name=hats&brand=tata&category=men
+  // // if (req.query.category) {
+  // //   productQuery = productQuery.find({
+  // //     category: { $regex: req.query.category, $options: "i" },
+  // //   });
+  // // }
+  // // //filter by color          {{baseURL}}/products?name=hats&brand=tata&category=men&color=red
+  // // if (req.query.color) {
+  // //   productQuery = productQuery.find({
+  // //     colors: { $regex: req.query.color, $options: "i" },
+  // //   });
+  // // }
+  // // //filter by size   {{baseURL}}/products?name=hats&brand=tata&category=men&color=red&size=xl
+  // // if (req.query.size) {
+  // //   productQuery = productQuery.find({
+  // //     sizes: { $regex: req.query.size, $options: "i" },
+  // //   });
+  // // }
+  // // //filter by range
+  // // if (req.query.price) {
+  // //   const priceRange = req.query.price.split("-");
+  // //   // console.log(priceRange);
+  // //   //gte: greater or equal
+  // //   //lte: less than or equal to
+  // //   productQuery = productQuery.find({
+  // //     price: { $gte: priceRange[0], $lte: priceRange[1] },
+  // //   });
+  // // }
+  // // //pagination
+  // // //page
+  // // const page = parseInt(req.query.page) ? parseInt(req.query.page) : 1;
+  // // //limit
+  // // const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 10;
+  // // //startIdx
+  // // const startIndex = (page - 1) * limit;
+  // // //endIdx
+  // // const endIndex = page * limit;
+  // // //total
+  // // const total = await Product.countDocuments();
+  // // productQuery = productQuery.skip(startIndex).limit(limit);
+  // // //pagination results
+  // // const pagination = {};
+  // // if (endIndex < total) {
+  // //   pagination.next = {
+  // //     page: page + 1,
+  // //     limit,
+  // //   };
+  // // }
+  // // if (startIndex > 0) {
+  // //   pagination.prev = {
+  // //     page: page - 1,
+  // //     limit,
+  // //   };
+  // // }
+  // const products = await productQuery;
+  // // console.log(products);
+  // //await the product
+  // res.json({
+  //   // status: "success",
+  //   // total,
+  //   // results: products.length,
+  //   // pagination,
+  //   // message: "Products fetched successfully",
+  //   products,
+  // });
 });
 
 //get singleproduct           {{baseURL}}/products/664e125223c29ecc4ed00317

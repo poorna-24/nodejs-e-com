@@ -20,6 +20,10 @@ const app = express();
 //pass incoming data
 app.use(express.json());
 
+app.get("/user/:id", (req, res, next) => {
+  res.send("special");
+});
+
 //routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
