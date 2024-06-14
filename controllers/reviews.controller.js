@@ -6,6 +6,7 @@ export const createReview = asyncHandler(async (req, res) => {
   const { product, message, rating } = req.body;
   //1. Find the product
   const { productID } = req.params;
+
   const productFound = await Product.findById(productID).populate("reviews");
   if (!productFound) {
     throw new Error("Product Not Found");
@@ -28,6 +29,7 @@ export const createReview = asyncHandler(async (req, res) => {
   productFound.reviews.push(review?._id);
   //resave
   await productFound.save();
+
   res.status(201).json({
     success: true,
     message: "Review created successfully",
