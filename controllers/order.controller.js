@@ -24,7 +24,7 @@ export const createOrder = asyncHandler(async (req, res) => {
     shippingAddress,
     totalPrice,
   });
-  console.log(order);
+  //   console.log(order);
   user.orders.push(order?._id);
   await user.save();
   //Update the product qty
