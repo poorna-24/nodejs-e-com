@@ -43,6 +43,20 @@ export const createOrder = asyncHandler(async (req, res) => {
   user.orders.push(order?._id);
   await user.save();
 
-  console.log(products);
-  res.json({ success: true, message: "Order Created", order, user });
+  // console.log(products);
+  const convertedOrders = orderItems.map((item) => {
+    return {
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: item?.name,
+          description: item?.description,
+        },
+        unit_amount: item?.price * 100,
+      },
+      quantity: item?.qty,
+    };
+  });
+
+  res.json({ success: true, message: "Order Created", order, user, convertedOrders });
 });
