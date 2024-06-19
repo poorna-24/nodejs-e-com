@@ -1,5 +1,7 @@
 postman :   https://www.postman.com/chanduterala/workspace/nodejs-e-com/collection/25163464-6ec45f49-d85b-455f-bb56-6f8b7cde1d4c?action=share&creator=25163464&active-environment=25163464-6724335c-ed1c-4a00-af39-4f41417c9797
 
+2_link : https://app.getpostman.com/join-team?invite_code=dc60217cd810c3d9f88d1f66a2df526b&target_code=a2f652cb0706c8daee26452a9449223e
+
 
 post
 http://localhost:2024/api/v1/users/login
@@ -32,6 +34,14 @@ delete product
 
 
 
+links
+users: https://chandu-team.postman.co/workspace/My-Workspace~ab5f9aaa-4de4-4eef-8320-6e72322db243/folder/34220018-3d092ddc-f48c-45df-84b2-8a19e8c3165a?action=share&source=copy-link&creator=34220018&ctx=documentation
+products: https://chandu-team.postman.co/workspace/My-Workspace~ab5f9aaa-4de4-4eef-8320-6e72322db243/folder/34220018-ca50cde4-d105-455a-b1bf-4a7a67ae8571?action=share&source=copy-link&creator=34220018&ctx=documentation
+categories: https://chandu-team.postman.co/workspace/My-Workspace~ab5f9aaa-4de4-4eef-8320-6e72322db243/folder/34220018-45ac5477-b32f-4ba8-b551-4d89c1ecd45d?action=share&source=copy-link&creator=34220018&ctx=documentation
+brands: https://chandu-team.postman.co/workspace/My-Workspace~ab5f9aaa-4de4-4eef-8320-6e72322db243/folder/34220018-fb10c7c7-43bf-404e-96e0-6aac083e9795?action=share&source=copy-link&creator=34220018&ctx=documentation
+color: https://chandu-team.postman.co/workspace/My-Workspace~ab5f9aaa-4de4-4eef-8320-6e72322db243/folder/34220018-dec14ec2-035f-429b-bea3-1fc8c095ba18?action=share&source=copy-link&creator=34220018&ctx=documentation
+reviews: https://chandu-team.postman.co/workspace/My-Workspace~ab5f9aaa-4de4-4eef-8320-6e72322db243/folder/34220018-95e7c0c3-b357-45a9-b106-90736de0882b?action=share&source=copy-link&creator=34220018&ctx=documentation
+orders: https://chandu-team.postman.co/workspace/My-Workspace~ab5f9aaa-4de4-4eef-8320-6e72322db243/folder/34220018-8cd65c1e-7ebe-4a51-bad4-388441f979d6?action=share&source=copy-link&creator=34220018&ctx=documentation
 
 
 
