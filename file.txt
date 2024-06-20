@@ -59,7 +59,16 @@ orders: https://chandu-team.postman.co/workspace/My-Workspace~ab5f9aaa-4de4-4eef
 
 ///
 
+environment
+PORT=5001,
+MONGO_URL="mongodb+srv://chandu12:Chandu12@nodejs-ecom.no7fgaw.mongodb.net/chandu-e-com?retryWrites=true&w=majority&appName=nodejs-ecom"
 
+
+JWT_KEY=jaisriram
+# CLOUDINARY_CLOUD_NAME=dkwsddbyk
+# CLOUDINARY_API_KEY=975381911792759
+# CLOUDINARY_API_SECRET_KEY=1AnQHW8A85tmAURaXa8XK10YMeI
+CLOUDINARY_URL=cloudinary:975381911792759:1AnQHW8A85tmAURaXa8XK10YMeI@dkwsddbyk
 
 
 
