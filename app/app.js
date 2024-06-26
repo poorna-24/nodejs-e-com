@@ -1,6 +1,7 @@
 //imports
 import dotenv from "dotenv";
 import express from "express";
+import cors from "cors";
 
 import { globalErrHandler, notFound } from "../middlewares/globalErrHandler.js";
 //file imports
@@ -14,13 +15,19 @@ import reviewRouter from "../routes/review.router.js";
 import orderRouter from "../routes/orders.router.js";
 
 dotenv.config();
+
 //db connect
 dbConnect();
 const app = express();
 
 //pass incoming data
 app.use(express.json());
-
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: process.env.FRONTEND_URL,
+//   })
+// );
 app.get("/user/:id", (req, res, next) => {
   res.send("special");
 });

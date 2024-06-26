@@ -6,8 +6,8 @@ import { createProduct, deleteProduct, getAllProducts, getProduct, updateProduct
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
 import upload from "../config/fileUpload.js";
 
-productRouter.post("/", isLoggedIn, upload.array("files"), createProduct);
-// productRouter.post("/", isLoggedIn, createProduct);
+// productRouter.post("/", isLoggedIn, upload.array("files"), createProduct);
+productRouter.post("/", isLoggedIn, createProduct);
 productRouter.get("/", getAllProducts);
 productRouter.get("/:id", getProduct);
 productRouter.put("/:id", isLoggedIn, updateProduct);
