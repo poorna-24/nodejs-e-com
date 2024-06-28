@@ -7,4 +7,3 @@ const PORT = 2030;
 //create server
 const server = http.createServer(app);
 server.listen(PORT, () => console.log(`server is up and running on ${PORT}`));
-3;

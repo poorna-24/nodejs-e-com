@@ -28,10 +28,16 @@ app.use(cors());
 //     origin: process.env.FRONTEND_URL,
 //   })
 // );
-app.get("/user/:id", (req, res, next) => {
+app.get("/test", (req, res, next) => {
   res.send("special");
 });
+app.get("/user/:id", (req, res, next) => {
+  const { i } = req.params;
+  console.log(id);
+  console.log("cahndu");
 
+  next();
+});
 //routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
@@ -45,10 +51,10 @@ app.use("/api/v1/orders", orderRouter);
 app.use(notFound);
 app.use(globalErrHandler);
 
-// app.use((err, req, res, next) => {
-//   const statusCode = err.statusCode || 500;
-//   const message = err.message || "internal server error";
-//   return res.status(statusCode).json({ message, success: false });
-// });
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "internal server error";
+  return res.status(statusCode).json({ message, success: false });
+});
 
 export default app;

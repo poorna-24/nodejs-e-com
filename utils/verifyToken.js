@@ -6,6 +6,7 @@ export const verifyToken = (token) => {
       return false;
       // return "Token expired/invalid";
     } else {
+      // console.log(decoded);
       return decoded;
     }
   });
