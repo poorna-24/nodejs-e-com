@@ -4,15 +4,21 @@ import Product from "../models/Product.js";
 import asyncHandler from "express-async-handler";
 
 export const createProduct = asyncHandler(async (req, res) => {
-<<<<<<< Updated upstream
-  // console.log("file-from local");
-  // console.log(req.files);
-  // console.log(req.body);
+  console.log(req.body);
   const { name, description, category, sizes, colors, price, totalQty, brand } = req.body;
-  //product exists
+  const convertedImgs = req.files.map((file) => file?.path);
+  //Product exists
   const productExists = await Product.findOne({ name });
   if (productExists) {
-    throw new Error("Product already exists");
+    throw new Error("Product Already Exists");
+  }
+  //find the brand
+  const brandFound = await Brand.findOne({
+    name: "addidas",
+  });
+
+  if (!brandFound) {
+    throw new Error("Brand not found, please create brand first or check brand name");
   }
   //find the category
   const categoryFound = await Category.findOne({
@@ -20,13 +26,6 @@ export const createProduct = asyncHandler(async (req, res) => {
   });
   if (!categoryFound) {
     throw new Error("Category not found, please create category first or check category name");
-  }
-  //find the brand
-  const brandFound = await Brand.findOne({
-    name: brand.toLowerCase(),
-  });
-  if (!brandFound) {
-    throw new Error("Brand not found, please create brand first or check brand name");
   }
   //create the product
   const product = await Product.create({
@@ -39,7 +38,7 @@ export const createProduct = asyncHandler(async (req, res) => {
     price,
     totalQty,
     brand,
-    // images: convertedImgs,
+    images: convertedImgs,
   });
   //push the product into category
   categoryFound.products.push(product._id);
@@ -49,56 +48,13 @@ export const createProduct = asyncHandler(async (req, res) => {
   brandFound.products.push(product._id);
   //resave
   await brandFound.save();
-  res.status(201).json({ status: "success", message: "Product created successfully" });
-=======
-  console.log("file-from local");
-  console.log(req.files);
-  // // console.log(req.body);
-  // const { name, description, category, sizes, colors, price, totalQty, brand } = req.body;
-  // //product exists
-  // const productExists = await Product.findOne({ name });
-  // if (productExists) {
-  //   throw new Error("Product already exists");
-  // }
-  // //find the category
-  // const categoryFound = await Category.findOne({
-  //   name: category,
-  // });
-  // if (!categoryFound) {
-  //   throw new Error("Category not found, please create category first or check category name");
-  // }
-  // //find the brand
-  // const brandFound = await Brand.findOne({
-  //   name: brand.toLowerCase(),
-  // });
-  // if (!brandFound) {
-  //   throw new Error("Brand not found, please create brand first or check brand name");
-  // }
-  // //create the product
-  // const product = await Product.create({
-  //   name,
-  //   description,
-  //   category,
-  //   sizes,
-  //   colors,
-  //   user: req.userAuthId,
-  //   price,
-  //   totalQty,
-  //   brand,
-  //   // images: convertedImgs,
-  // });
-  // //push the product into category
-  // categoryFound.products.push(product._id);
-  // //resave
-  // await categoryFound.save();
-  // //push the product into brand
-  // brandFound.products.push(product._id);
-  // //resave
-  // await brandFound.save();
-  // res.status(201).json({ status: "success", message: "Product created successfully" });
->>>>>>> Stashed changes
-});
-//////////////////////////////////////////
+  //send response
+  res.json({
+    status: "success",
+    message: "Product created successfully",
+    product,
+  });
+}); /////////////////
 //get all products
 
 export const getAllProducts = asyncHandler(async (req, res) => {
