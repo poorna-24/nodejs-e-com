@@ -2,7 +2,6 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-
 import { globalErrHandler, notFound } from "../middlewares/globalErrHandler.js";
 //file imports
 import dbConnect from "../config/dbConnect.js";
@@ -13,6 +12,7 @@ import brandsRouter from "../routes/brands.router.js";
 import colorRouter from "../routes/colors.router.js";
 import reviewRouter from "../routes/review.router.js";
 import orderRouter from "../routes/orders.router.js";
+import { isLoggedIn } from "../middlewares/isLoggedIn.js";
 
 dotenv.config();
 
@@ -28,16 +28,13 @@ app.use(cors());
 //     origin: process.env.FRONTEND_URL,
 //   })
 // );
-app.get("/test", (req, res, next) => {
+
+//to test user loggedin are not
+app.get("/api/v1/test", isLoggedIn, (req, res, next) => {
+  console.log(req.userAuthId);
   res.send("special");
 });
-app.get("/user/:id", (req, res, next) => {
-  const { i } = req.params;
-  console.log(id);
-  console.log("cahndu");
 
-  next();
-});
 //routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
@@ -51,10 +48,10 @@ app.use("/api/v1/orders", orderRouter);
 app.use(notFound);
 app.use(globalErrHandler);
 
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  const message = err.message || "internal server error";
-  return res.status(statusCode).json({ message, success: false });
-});
+// app.use((err, req, res, next) => {
+//   const statusCode = err.statusCode || 500;
+//   const message = err.message || "internal server error";
+//   return res.status(statusCode).json({ message, success: false });
+// });
 
 export default app;

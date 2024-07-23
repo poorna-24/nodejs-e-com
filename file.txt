@@ -6,6 +6,7 @@ new1: https://chandu-team.postman.co/workspace/My-Workspace~ab5f9aaa-4de4-4eef-8
 
 
 https://chandu-team.postman.co/workspace/My-Workspace~ab5f9aaa-4de4-4eef-8320-6e72322db243/collection/34220018-0cacb8fb-b65b-4c0f-a52a-64a6559240d6?action=share&creator=34220018&active-environment=34220018-9beb5a06-f263-4bf6-8955-200a623d806b
+new : https://www.postman.com/chanduterala/workspace/nodejs-e-com/collection/25163464-01e0f351-cfcb-4dc9-a985-67622b8b047e?action=share&creator=25163464&active-environment=25163464-6724335c-ed1c-4a00-af39-4f41417c9797
 
 post
 http://localhost:2024/api/v1/users/login
@@ -80,97 +81,16 @@ CLOUDINARY_URL=cloudinary:975381911792759:1AnQHW8A85tmAURaXa8XK10YMeI@dkwsddbyk
 
 
 
-///
 
 
 
 
-
-
-
-
-
-//
- /////////////////////
-  // console.log(req.query);
-  // let productQuery = Product.find();
-  // // console.log(productQuery);
-  // // const products = await Product.find();
-  // //serach by name   {{baseURL}}/products?name=hats
-  // //
-  // if (req.query.name) {
-  //   productQuery = productQuery.find({
-  //     name: { $regex: req.query.name, $options: "i" },
-  //   });
-  // }
-  // // //search by brand  {{baseURL}}/products?name=hats&brand=tata
-  // // if (req.query.brand) {
-  // //   productQuery = productQuery.find({
-  // //     brand: { $regex: req.query.brand, $options: "i" },
-  // //   });
-  // // }
-  // // //search by category  {{baseURL}}/products?name=hats&brand=tata&category=men
-  // // if (req.query.category) {
-  // //   productQuery = productQuery.find({
-  // //     category: { $regex: req.query.category, $options: "i" },
-  // //   });
-  // // }
-  // // //filter by color          {{baseURL}}/products?name=hats&brand=tata&category=men&color=red
-  // // if (req.query.color) {
-  // //   productQuery = productQuery.find({
-  // //     colors: { $regex: req.query.color, $options: "i" },
-  // //   });
-  // // }
-  // // //filter by size   {{baseURL}}/products?name=hats&brand=tata&category=men&color=red&size=xl
-  // // if (req.query.size) {
-  // //   productQuery = productQuery.find({
-  // //     sizes: { $regex: req.query.size, $options: "i" },
-  // //   });
-  // // }
-  // // //filter by range
-  // // if (req.query.price) {
-  // //   const priceRange = req.query.price.split("-");
-  // //   // console.log(priceRange);
-  // //   //gte: greater or equal
-  // //   //lte: less than or equal to
-  // //   productQuery = productQuery.find({
-  // //     price: { $gte: priceRange[0], $lte: priceRange[1] },
-  // //   });
-  // // }
-  // // //pagination
-  // // //page
-  // // const page = parseInt(req.query.page) ? parseInt(req.query.page) : 1;
-  // // //limit
-  // // const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 10;
-  // // //startIdx
-  // // const startIndex = (page - 1) * limit;
-  // // //endIdx
-  // // const endIndex = page * limit;
-  // // //total
-  // // const total = await Product.countDocuments();
-  // // productQuery = productQuery.skip(startIndex).limit(limit);
-  // // //pagination results
-  // // const pagination = {};
-  // // if (endIndex < total) {
-  // //   pagination.next = {
-  // //     page: page + 1,
-  // //     limit,
-  // //   };
-  // // }
-  // // if (startIndex > 0) {
-  // //   pagination.prev = {
-  // //     page: page - 1,
-  // //     limit,
-  // //   };
-  // // }
-  // const products = await productQuery;
-  // // console.log(products);
-  // //await the product
-  // res.json({
-  //   // status: "success",
-  //   // total,
-  //   // results: products.length,
-  //   // pagination,
-  //   // message: "Products fetched successfully",
-  //   products,
-  // });
+// cretate product 
+{ "name":"men shirt",
+	 "description":"men shirt",
+	  "category":"Men",
+		 "sizes":"XL",
+		  "colors":"red",
+	 "price":"1200",
+	"totalQty":"10",
+		"brand":"netplay"}

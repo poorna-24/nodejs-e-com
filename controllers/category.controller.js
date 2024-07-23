@@ -4,7 +4,6 @@ import Category from "./../models/Category.js";
 // create new category
 //Post /api/v1/categories
 //Private/admin
-
 export const createCategory = asyncHandler(async (req, res) => {
   const { name, user, image, products } = req.body;
 
@@ -30,6 +29,7 @@ export const getAllCategories = asyncHandler(async (req, res) => {
   res.json({
     status: "success",
     message: "Categories fetched successfully",
+    result: categories.length,
     categories,
   });
 });

@@ -68,7 +68,7 @@ const ProductSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
+    toJSON: { virtuals: true }, //populate ID's into real objects.so, with this we can use populate on the product
   }
 );
 // Virtuals

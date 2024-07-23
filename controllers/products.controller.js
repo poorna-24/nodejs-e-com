@@ -9,10 +9,10 @@ export const createProduct = asyncHandler(async (req, res) => {
   // console.log(req.body);
   const { name, description, category, sizes, colors, price, totalQty, brand } = req.body;
   //product exists
-  const productExists = await Product.findOne({ name });
-  if (productExists) {
-    throw new Error("Product already exists");
-  }
+  // const productExists = await Product.findOne({ name });
+  // if (productExists) {
+  // throw new Error("Product already exists");
+  // }
   //find the category
   const categoryFound = await Category.findOne({
     name: category,
@@ -50,14 +50,13 @@ export const createProduct = asyncHandler(async (req, res) => {
   await brandFound.save();
   res.status(201).json({ status: "success", message: "Product created successfully" });
 });
-//////////////////////////////////////////
+////////////////////////////////////
 //get all products
 
 export const getAllProducts = asyncHandler(async (req, res) => {
-  console.log(req.query);
   //query
   let productQuery = Product.find();
-
+  // console.log(productQuery);
   //search by name
   if (req.query.name) {
     productQuery = productQuery.find({
