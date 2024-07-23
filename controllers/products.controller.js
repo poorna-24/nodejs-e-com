@@ -13,6 +13,7 @@ export const createProduct = asyncHandler(async (req, res) => {
   // if (productExists) {
   // throw new Error("Product already exists");
   // }
+
   //find the category
   const categoryFound = await Category.findOne({
     name: category,
