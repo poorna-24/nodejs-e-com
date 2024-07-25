@@ -52,13 +52,6 @@ orders: https://chandu-team.postman.co/workspace/My-Workspace~ab5f9aaa-4de4-4eef
 
 
 
-//
-
-
-
-
-
-
 
 
 
