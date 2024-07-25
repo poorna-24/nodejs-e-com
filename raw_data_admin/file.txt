@@ -53,8 +53,7 @@ orders: https://chandu-team.postman.co/workspace/My-Workspace~ab5f9aaa-4de4-4eef
 
 
 //
-new postman 25th july
-https://api.postman.com/collections/25163464-01e0f351-cfcb-4dc9-a985-67622b8b047e?access_key=PMAT-01J3NBJ43PA6TQFAA86AAHZ7ZV
+
 
 
 
