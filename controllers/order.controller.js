@@ -4,30 +4,31 @@ import User from "./../models/User.js";
 import Product from "../models/Product.js";
 
 export const createOrder = asyncHandler(async (req, res) => {
-  //Get the payload(customer, orderItems, shippingAddress, totalPrice);
+  //get the payload(customer,orderItems,shippingAsddress,totalPrice)
   const { orderItems, shippingAddress, totalPrice } = req.body;
-
-  //   const user = await User.findById(req.userAuthId);
+  // console.log(orderItems, shippingAddress, totalPrice);
+  //find the user
   const user = await User.findById(req.userAuthId);
-  //   console.log(user);
-  if (!user?.hasShippingAddress) {
+  //check if the user has shipping address
+  if (user?.hasShippingAddress) {
     throw new Error("Please provide shipping address");
   }
-
+  //check if order is not empty
   if (orderItems?.length <= 0) {
-    throw new Error("No ordered items");
+    throw new Error("No Order items");
   }
-
+  //place/create order --save to DB
   const order = await Order.create({
     user: user?._id,
     orderItems,
     shippingAddress,
     totalPrice,
   });
-  //   console.log(order);
-  user.orders.push(order?._id);
+  // console.log(order);
+  //push order into user
+  user.orders.push(order._id);
   await user.save();
-  //Update the product qty
+  //update the product qty
   const products = await Product.find({ _id: { $in: orderItems } });
 
   orderItems?.map(async (order) => {
@@ -39,24 +40,9 @@ export const createOrder = asyncHandler(async (req, res) => {
     }
     await product.save();
   });
-  //push order into user
-  user.orders.push(order?._id);
-  await user.save();
+  //make payment (stripe)
+  //payment webhooks
+  //update the user order
 
-  // console.log(products);
-  const convertedOrders = orderItems.map((item) => {
-    return {
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: item?.name,
-          description: item?.description,
-        },
-        unit_amount: item?.price * 100,
-      },
-      quantity: item?.qty,
-    };
-  });
-
-  res.json({ success: true, message: "Order Created", order, user, convertedOrders });
+  res.json({ success: true, message: "order controller", order, user });
 });

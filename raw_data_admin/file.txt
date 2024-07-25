@@ -35,7 +35,9 @@ delete product
 //search by name
 {{baseURL}}/products?name=hats
 
-
+//stripe
+chandutempcs@gmail.com
+Chandu12@!
 
 
 
@@ -94,3 +96,71 @@ CLOUDINARY_URL=cloudinary:975381911792759:1AnQHW8A85tmAURaXa8XK10YMeI@dkwsddbyk
 	 "price":"1200",
 	"totalQty":"10",
 		"brand":"netplay"}
+
+
+
+
+
+
+
+
+		///
+		///
+		///
+		export const createOrder = asyncHandler(async (req, res) => {
+//   //Get the payload(customer, orderItems, shippingAddress, totalPrice);
+//   const { orderItems, shippingAddress, totalPrice } = req.body;
+
+//   //   const user = await User.findById(req.userAuthId);
+//   const user = await User.findById(req.userAuthId);
+//   //   console.log(user);
+//   if (!user?.hasShippingAddress) {
+//     throw new Error("Please provide shipping address");
+//   }
+
+//   if (orderItems?.length <= 0) {
+//     throw new Error("No ordered items");
+//   }
+
+//   const order = await Order.create({
+//     user: user?._id,
+//     orderItems,
+//     shippingAddress,
+//     totalPrice,
+//   });
+//   //   console.log(order);
+//   user.orders.push(order?._id);
+//   await user.save();
+//   //Update the product qty
+//   const products = await Product.find({ _id: { $in: orderItems } });
+
+//   orderItems?.map(async (order) => {
+//     const product = products?.find((product) => {
+//       return product?._id?.toString() === order?._id?.toString();
+//     });
+//     if (product) {
+//       product.totalSold += order.qty;
+//     }
+//     await product.save();
+//   });
+//   //push order into user
+//   user.orders.push(order?._id);
+//   await user.save();
+
+//   // console.log(products);
+//   const convertedOrders = orderItems.map((item) => {
+//     return {
+//       price_data: {
+//         currency: "usd",
+//         product_data: {
+//           name: item?.name,
+//           description: item?.description,
+//         },
+//         unit_amount: item?.price * 100,
+//       },
+//       quantity: item?.qty,
+//     };
+//   });
+
+//   res.json({ success: true, message: "Order Created", order, user, convertedOrders });
+// });
