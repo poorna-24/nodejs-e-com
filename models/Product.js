@@ -39,7 +39,7 @@ const ProductSchema = new mongoose.Schema(
     images: [
       {
         type: String,
-        default: "http://via.placeholder.com/150",
+        required: true,
         // required: true,
       },
     ],

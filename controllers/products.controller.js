@@ -5,9 +5,13 @@ import asyncHandler from "express-async-handler";
 
 export const createProduct = asyncHandler(async (req, res) => {
   // console.log("file-from local");
-  // console.log(req.files);
+  console.log(req.files);
+
   // console.log(req.body);
   const { name, description, category, sizes, colors, price, totalQty, brand } = req.body;
+
+  const convertedImgs = req.files.map((file) => file?.path);
+  console.log(convertedImgsconvertedImgs);
   //product exists
   // const productExists = await Product.findOne({ name });
   // if (productExists) {
@@ -39,7 +43,7 @@ export const createProduct = asyncHandler(async (req, res) => {
     price,
     totalQty,
     brand,
-    // images: convertedImgs,
+    images: convertedImgs,
   });
   //push the product into category
   categoryFound.products.push(product._id);

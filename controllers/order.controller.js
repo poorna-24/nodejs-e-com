@@ -7,9 +7,10 @@ import User from "./../models/User.js";
 import Product from "../models/Product.js";
 
 //stripe instance
-const stripe = new Stripe(process.env.STRIPE_KEY, {
-  maxNetworkRetries: 0, // Disable retries
-});
+const stripe = new Stripe(process.env.STRIPE_KEY);
+// const stripe = new Stripe(process.env.STRIPE_KEY, {
+//   maxNetworkRetries: 0, // Disable retries
+// });
 // const stripe = new Stripe("sk_test_51PSfsCDz6Lvyhb8zvTrhYrOo1cUSLuWrFQSxY0CXWB0eGL1hWeGVepRmPHFkElcmwft3RtMowLYVh09pEBZehUPb00iAPcZPQQ");
 
 export const createOrder = asyncHandler(async (req, res) => {
