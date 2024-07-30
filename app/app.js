@@ -14,6 +14,7 @@ import colorRouter from "../routes/colors.router.js";
 import reviewRouter from "../routes/review.router.js";
 import orderRouter from "../routes/orders.router.js";
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
+import couponRouter from "../routes/coupon.router.js";
 import Order from "../models/order.js";
 
 dotenv.config();
@@ -21,16 +22,6 @@ dotenv.config();
 //db connect
 dbConnect();
 const app = express();
-//pass incoming data
-app.use(express.json());
-app.use(cors());
-// app.use(
-//   cors({
-//     origin: process.env.FRONTEND_URL,
-//   })
-// );
-//stripe webhook
-// server.js
 
 const stripe = new Stripe(process.env.STRIPE_KEY);
 
@@ -46,6 +37,7 @@ app.post("/webhook", express.raw({ type: "application/json" }), async (request, 
     event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
     console.log("event");
   } catch (err) {
+    console.log("err", err.message);
     response.status(400).send(`Webhook Error: ${err.message}`);
     return;
   }
@@ -58,13 +50,13 @@ app.post("/webhook", express.raw({ type: "application/json" }), async (request, 
     const paymentMethod = session.payment_method_types[0];
     const totalAmount = session.amount_total;
     const currency = session.currency;
-    console.log({
-      orderId,
-      paymentMethod,
-      paymentStatus,
-      totalAmount,
-      currency,
-    });
+    // console.log({
+    //   orderId,
+    //   paymentMethod,
+    //   paymentStatus,
+    //   totalAmount,
+    //   currency,
+    // });
     // find the order
     const order = await Order.findByIdAndUpdate(
       JSON.parse(orderId),
@@ -97,6 +89,16 @@ app.post("/webhook", express.raw({ type: "application/json" }), async (request, 
   response.send();
 });
 
+//pass incoming data
+app.use(express.json());
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: process.env.FRONTEND_URL,
+//   })
+// );
+//stripe webhook
+
 //to test user loggedin are not
 app.get("/api/v1/test", isLoggedIn, (req, res, next) => {
   console.log(req.userAuthId);
@@ -111,6 +113,7 @@ app.use("/api/v1/brands", brandsRouter);
 app.use("/api/v1/colors", colorRouter);
 app.use("/api/v1/reviews", reviewRouter);
 app.use("/api/v1/orders", orderRouter);
+app.use("/api/v1/coupons", couponRouter);
 
 //err middleware
 app.use(notFound);

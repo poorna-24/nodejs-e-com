@@ -91,3 +91,7 @@ CLOUDINARY_URL=cloudinary:975381911792759:1AnQHW8A85tmAURaXa8XK10YMeI@dkwsddbyk
 	"totalQty":"10",
 		"brand":"netplay"}
 
+
+
+july 30 2024 postman
+https://chandu-team.postman.co/workspace/My-Workspace~ab5f9aaa-4de4-4eef-8320-6e72322db243/collection/34220018-4d53cd0c-6871-455d-96dc-c723bfc597ae?action=share&creator=34220018&active-environment=34220018-9beb5a06-f263-4bf6-8955-200a623d806b

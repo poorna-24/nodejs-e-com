@@ -59,24 +59,30 @@ export const loginUser = asyncHandler(async (req, res) => {
 // @access  Private
 
 export const getUserProfileCtrl = asyncHandler(async (req, res) => {
-  const token = getTokenFromHeader(req);
-  // console.log(token);
-  //verify token
-  const verified = verifyToken(token);
-
-  // console.log(verified);
-
-  // console.log(req);
-
-  // console.log(req.headers);
-  //get token from header
-  // const headerObj = req?.headers?.authorization?.split(" ")[1];
-  // console.log(headerObj);
+  //find the user
+  const user = await User.findById(req.userAuthId).populate("orders");
   res.json({
-    message: "welcome to profile",
+    status: "success",
+    message: "User profile fetched successfully",
+    user,
   });
 });
+//  const token = getTokenFromHeader(req);
+//  // console.log(token);
+//  //verify token
+//  const verified = verifyToken(token);
 
+//  // console.log(verified);
+
+//  // console.log(req);
+
+//  // console.log(req.headers);
+//  //get token from header
+//  // const headerObj = req?.headers?.authorization?.split(" ")[1];
+//  // console.log(headerObj);
+//  res.json({
+//    message: "welcome to profile",
+//  });
 // @desc    Update user shipping address
 // @route   PUT /api/v1/users/update/shipping
 // @access  Private
