@@ -5,14 +5,15 @@ import { createProduct, deleteProduct, getAllProducts, getProduct, updateProduct
 
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
 import upload from "../config/fileUpload.js";
+import isAdmin from "../middlewares/isAdmin.js";
 
 // productRouter.post("/", isLoggedIn, upload.array("files"), createProduct);
 // productRouter.post("/", isLoggedIn, upload.single("file"), createProduct);
-productRouter.post("/", isLoggedIn, upload.array("files"), createProduct);
+productRouter.post("/", isLoggedIn, isAdmin, upload.array("files"), createProduct);
 
 productRouter.get("/", getAllProducts);
 productRouter.get("/:id", getProduct);
-productRouter.put("/:id", isLoggedIn, updateProduct);
-productRouter.delete("/:id", isLoggedIn, deleteProduct);
+productRouter.put("/:id", isLoggedIn, isAdmin, updateProduct);
+productRouter.delete("/:id/delete", isLoggedIn, isAdmin, deleteProduct);
 
 export default productRouter;
