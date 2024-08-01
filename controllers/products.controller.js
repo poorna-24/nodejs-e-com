@@ -4,21 +4,18 @@ import Product from "../models/Product.js";
 import asyncHandler from "express-async-handler";
 
 export const createProduct = asyncHandler(async (req, res) => {
-  // console.log("file-from local");
-  console.log(req.file);
-
-  // console.log(req.body);
+  // console.log(req.files);
   const { name, description, category, sizes, colors, price, totalQty, brand } = req.body;
 
-  // const convertedImgs = req.files.map((file) => file?.path);
-  // console.log(convertedImgsconvertedImgs);
+  const convertedImgs = req.files.map((file) => file?.path);
+  console.log(convertedImgs);
   //product exists
-  // const productExists = await Product.findOne({ name });
-  // if (productExists) {
-  // throw new Error("Product already exists");
-  // }
+  const productExists = await Product.findOne({ name });
+  if (productExists) {
+    throw new Error("Product already exists");
+  }
 
-  //find the category
+  // find the category
   const categoryFound = await Category.findOne({
     name: category,
   });
@@ -43,7 +40,7 @@ export const createProduct = asyncHandler(async (req, res) => {
     price,
     totalQty,
     brand,
-    // images: convertedImgs,
+    images: convertedImgs,
   });
   //push the product into category
   categoryFound.products.push(product._id);
@@ -53,7 +50,7 @@ export const createProduct = asyncHandler(async (req, res) => {
   brandFound.products.push(product._id);
   //resave
   await brandFound.save();
-  res.status(201).json({ status: "success", message: "Product created successfully" });
+  res.status(201).json({ status: "success", message: "Product created successfully", product });
 });
 ////////////////////////////////////
 //get all products
