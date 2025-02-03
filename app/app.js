@@ -22,7 +22,7 @@ dotenv.config();
 //db connect
 dbConnect();
 const app = express();
-app.use(cors());
+app.use(cors()); //Enable All CORS Requests
 
 const stripe = new Stripe(process.env.STRIPE_KEY);
 
@@ -102,7 +102,12 @@ app.use(express.json());
 
 //to test user loggedin are not
 app.get("/api/v1/test", isLoggedIn, (req, res, next) => {
-  console.log(req.userAuthId);
+  // console.log(req.userAuthId);
+
+  res.send("special");
+});
+app.get("/api/v1/test1", (req, res, next) => {
+  console.log("chandu");
   res.send("special");
 });
 
