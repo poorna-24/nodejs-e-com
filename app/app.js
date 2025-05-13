@@ -3,6 +3,11 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import Stripe from "stripe";
+import helmet from "helmet";
+import { rateLimit } from "express-rate-limit";
+import hpp from "hpp";
+import mongoSanitize from "express-mongo-sanitize";
+import { xss } from "express-xss-sanitizer";
 import { globalErrHandler, notFound } from "../middlewares/globalErrHandler.js";
 //file imports
 import dbConnect from "../config/dbConnect.js";
@@ -22,6 +27,20 @@ dotenv.config();
 //db connect
 dbConnect();
 const app = express();
+
+app.use(helmet());
+
+const limiter = rateLimit({
+  limit: 100,
+  windowMs: 15 * 60 * 1000,
+  message: "Too many requests, please try again later",
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use(limiter);
+app.use(xss());
+app.use(hpp());
+app.use(mongoSanitize);
 app.use(cors()); //Enable All CORS Requests
 
 const stripe = new Stripe(process.env.STRIPE_KEY);
@@ -103,8 +122,7 @@ app.use(express.json());
 //to test user loggedin are not
 app.get("/api/v1/test", isLoggedIn, (req, res, next) => {
   // console.log(req.userAuthId);
-
-  res.send("special");
+  res.send("special with isLoggedIn");
 });
 app.get("/api/v1/test1", (req, res, next) => {
   console.log("chandu");

@@ -6,6 +6,9 @@ const dbConnect = async () => {
   } catch (error) {
     console.log(`Error: ${error.message}`);
     // process.exit(1);
+
+    //0 means end the process without any kind of failure.
+    //1 means end the process with some failure.
   }
 };
 
