@@ -16,13 +16,23 @@ import orderRouter from "../routes/orders.router.js";
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
 import couponRouter from "../routes/coupon.router.js";
 import Order from "../models/order.js";
+import fs from "fs";
+
+// fs.readFile("./file.txt", "utf-8", (err, data) => {
+//   console.log(data);
+// });
 
 dotenv.config();
 
 //db connect
 dbConnect();
 const app = express();
-
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//   })
+// );
 const stripe = new Stripe(process.env.STRIPE_KEY);
 
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
@@ -91,7 +101,6 @@ app.post("/webhook", express.raw({ type: "application/json" }), async (request, 
 
 //pass incoming data
 app.use(express.json());
-app.use(cors());
 // app.use(
 //   cors({
 //     origin: process.env.FRONTEND_URL,

@@ -53,6 +53,7 @@ export const createProduct = asyncHandler(async (req, res) => {
   res.status(201).json({ status: "success", message: "Product created successfully", product });
 });
 ////////////////////////////////////
+
 //get all products
 
 export const getAllProducts = asyncHandler(async (req, res) => {
